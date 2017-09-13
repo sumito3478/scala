@@ -378,7 +378,7 @@ abstract class FormatInterpolator {
     def goodCC = ("HIklMSLNpzZsQBbhAaCYyjmdeRTrDFc" contains cc) ||
       falsely { errorAtOffset(CC, 1, s"'$cc' doesn't seem to be a date or time conversion") }
     override def verify = super.verify && hasCC && goodCC && noPrecision && only_-("date/time conversions")
-    def accepts(arg: Tree) = pickAcceptable(arg, LongTpe, tagOfCalendar.tpe, tagOfDate.tpe)
+    def accepts(arg: Tree) = pickAcceptable(arg, LongTpe, tagOfCalendar.tpe, tagOfDate.tpe, tagOfTemporalAccessor.tpe)
   }
   class ErrorXn(val m: Match, val pos: Position) extends Conversion {
     val argc = 0

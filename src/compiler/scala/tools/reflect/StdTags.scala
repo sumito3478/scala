@@ -39,6 +39,7 @@ trait StdTags {
   lazy val tagOfBigDecimal = tagOfStaticClass[BigDecimal]
   lazy val tagOfCalendar = tagOfStaticClass[java.util.Calendar]
   lazy val tagOfDate = tagOfStaticClass[java.util.Date]
+  lazy val tagOfTemporalAccessor = tagOfStaticClass[java.time.temporal.TemporalAccessor]
 }
 
 object StdRuntimeTags extends StdTags {

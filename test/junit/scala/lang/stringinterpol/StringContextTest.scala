@@ -127,9 +127,11 @@ class StringContextTest {
     val fff  = new java.util.Formattable {
       def formatTo(f: java.util.Formatter, g: Int, w: Int, p: Int) = f.format("4")
     }
-    import java.util.{Calendar, Locale}
+    import java.util.{Calendar, Locale, TimeZone}
+    import java.time.{LocalDateTime, OffsetDateTime, ZonedDateTime}
     val c = Calendar.getInstance(Locale.US)
     c.set(2012, Calendar.MAY, 26)
+    val zoneId = TimeZone.getDefault.toZoneId
     implicit def strToDate(x: String): Calendar = c
 
     val ss = List[(String, String)] (
@@ -240,6 +242,9 @@ class StringContextTest {
       f"${c.getTime}%TD"         -> "05/26/12",
       f"${c.getTime.getTime}%TD" -> "05/26/12",
       f"""${"1234"}%TD"""        -> "05/26/12",
+      f"${LocalDateTime.ofInstant(c.toInstant, zoneId)}%TD"  -> "05/26/12",
+      f"${OffsetDateTime.ofInstant(c.toInstant, zoneId)}%TD" -> "05/26/12",
+      f"${ZonedDateTime.ofInstant(c.toInstant, zoneId)}%TD"  -> "05/26/12",
 
       // literals and arg indexes
       f"%%" -> "%",
